@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+	<head>
+
+	<title>INTERNET POINTS</title>
+
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script type="text/javascript" src="jquery-1.3.2.js"></script>
+
+	<script type="text/javascript" src="snowstorm.js"></script>
+
+<style>
+@font-face {
+	font-family: monkey;
+	src: url('DK Motley Crew.otf');
+}
+
+body {
+	font-family: 'monkey';
+	background: #FFC0CB;
+	color: #986840;
+	margin: 0px;
+	padding: 0px;
+}
+header {
+	margin-top: 20px;
+	font-size: 30px;
+}
+#holder {
+	margin: auto;
+	text-align: center;
+}
+
+#unicorn {
+	display: block;
+	position: absolute;
+}
+
+.charlie {
+	font-family: monospace;
+	font-size: 2em;
+	color: green;
+	font-weight: bold;
+}
+#nyan_holder {
+	background-color: black;
+	position: static;
+}
+
+
+.skewer {
+	transition: 5s ease-in;
+	-moz-transition: 5s ease-in;
+	-ms-transition: 5s ease-in;
+	-webkit-transition: 5s ease-in;
+	-o-transition: 5s ease-in;
+}
+
+.skewed {
+	transition: 70s ease-in;
+	/*General*/
+	transform: skew(10deg, 10deg);
+	/*Firefox*/
+	-moz-transform: skew(10deg, 10deg);
+	/*Microsoft Internet Explorer*/
+	-ms-transform: skew(10deg, 10deg);
+	/*Chrome, Safari*/
+	-webkit-transform: skew(10deg, 10deg);
+	/*Opera*/
+	-o-transform: skew(10deg, 10deg);
+}
+
+.spare {
+	color: red;
+	font-family: monospace;
+	font-size: 40px;
+}
+
+#test-area {
+	background: url('pattern.gif');
+}
+
+</style>
+
+	</head>
+
+	<body class='skewer'  onmouseover="this.className='skewer skewed'" onmouseout="this.className='skewer'">
+<div id="test-area" >
+		<div id='nyan_holder'>
+			<img id='nini' height='40px' src='nyan.gif' />
+		</div>
+		<div id='holder'>
+
+			<header>
+				Welcome to the <span id='INTERNET'>INTERNET!</span>
+			</header>
+
+			<img id='unicorn' src='unicorn-running.gif' />
+
+
+			<div>
+			<span class='charlie'>Wake up Charlie!</span>
+			</div>
+
+			<img src='http://i.imgur.com/a0QZxXO.gif' />
+			<div>
+			<img width='150px' src='strobo.gif' />
+			</div>
+			<div>
+			<img src='beard.gif' />
+			</div>
+			<div>
+			<span class='spare'>SPARE MY EYES!</span> <br/>
+			<img src='cat.jpg' />
+			</div>
+			<audio  autoplay>
+				<source src="rickroll.ogg" type="audio/ogg">
+				Your browser sucks.
+			</audio>
+		</div>
+</div>
+<div id="mycursor"></div>
+
+		<script>
+//the fun
+
+function nya() {
+	var nini = d3.select("#nini");
+	nini.style('position','relative')
+		.style('left','-100px')
+
+	nini.transition()
+		.delay(300)
+		.duration(5000)
+		.style('left','1400px')
+		.on('end', nya);
+}
+nya();
+
+function mess_it() {
+	var internet_title = d3.select("#INTERNET")
+	internet_title.transition()
+		.delay(600)
+		.style('color','green')
+		.style('font-size','60px')
+		.on('end', function() {
+			d3.select(this)
+				.transition()
+				.duration(200)
+				.style('font-size',' 20px')
+				.style('color', 'pink')
+				.on('end', function() {
+					mess_it();
+				});
+		});
+
+}
+mess_it();
+
+function uniuni() {
+
+var unicorn = d3.select('#unicorn')
+	.style('top','100px')
+	.style('right','-300px')
+	.style('-moz-transform', 'scaleX(1)');
+
+
+unicorn.transition()
+	.delay(300)
+	.duration(2500)
+	.style('top','50px')
+	.style('right','1500px')
+	.on('end', function() {
+		d3.select(this).style('-moz-transform', 'scaleX(-1)');
+
+		d3.select(this).transition()
+		.delay(600)
+		.duration(2500)
+		.style('right','-300px')
+		.style('top','100px')
+		.on('end', uniuni);
+	});
+}
+uniuni();
+
+function getrandcursor() {
+	return ['grab','move','crosshair','hand','help','wait','pointer'][Math.floor(Math.random()*7)];
+}
+
+function co(lor){
+	return (
+	lor += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+	&& (lor.length == 6) ?  lor : co(lor);
+}
+
+window.setInterval( function() {
+	document.body.style.backgroundColor = "#"+co(6);
+     	document.body.style.cursor = getrandcursor();
+
+}, 100);
+
+		</script>
+	</body>
+
+</html>
